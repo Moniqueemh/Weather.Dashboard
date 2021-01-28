@@ -1,3 +1,4 @@
+
 const APIKEY = '9597c88cd097acdb1c2707d38fbd78af';
 
 
@@ -27,8 +28,8 @@ function getCurrentForcast(city) {
     });
 };
 
-function getForcastFiveDays(lat, lon){
-
+function getForcastFiveDays(lat, lon) {
+    
     let url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts&units=imperial&appid=" + APIKEY;
 
     $.ajax({
@@ -38,9 +39,19 @@ function getForcastFiveDays(lat, lon){
         //console.log(response)
 
         const dailies = response.daily;
-        for(let i = 0; i <5; i++){
-            console.log(dailies[i]);
-            
+        for (let i = 1; i < 6; i++) {
+            const daily = dailies[i];
+
+            let card = $("<div>");
+            let dateOb = moment(daily.dt * 1000)
+            console.log(dateOb)
+            let date = $("<p>").text(dateOb.format('L'));
+            let icon = $("<img>").attr('src', "http://openweathermap.org/img/wn/" + daily.weather[0].icon + "@2x.png");
+            let temp = $("<p>").text(daily.temp.day);
+            let humidity = $("<p>").text(daily.humidity);
+
+            card.append(date,icon,temp,humidity);
+            $("#five-day-area").append(card);
         }
     });
 
