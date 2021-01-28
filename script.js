@@ -11,7 +11,7 @@ function getCurrentForcast(city) {
         url: url,
         method: "GET"
     }).then(function (response) {
-        console.log(response)
+        //console.log(response)
         let temp = response.main.temp;
         let humidity = response.main.humidity;
         let wind = response.wind.speed;
@@ -22,10 +22,29 @@ function getCurrentForcast(city) {
 
         $("#current-area").append(tempDisplay, windDisplay, humidityDisplay)
 
-        getUV(response.coord.lat, response.coord.lon)
+        getUV(response.coord.lat, response.coord.lon);
+        getForcastFiveDays(response.coord.lat, response.coord.lon);
     });
 };
 
+function getForcastFiveDays(lat, lon){
+
+    let url = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts&units=imperial&appid=" + APIKEY;
+
+    $.ajax({
+        url: url,
+        method: "GET"
+    }).then(function (response) {
+        //console.log(response)
+
+        const dailies = response.daily;
+        for(let i = 0; i <5; i++){
+            console.log(dailies[i]);
+            
+        }
+    });
+
+};
 
 function getUV(lat, lon) {
 
@@ -38,8 +57,9 @@ function getUV(lat, lon) {
         console.log(response)
 
         let uvIndex = response.value;
-        let uvDispaly = $("<p>").text(uvIndex);
+        let uvDisplay = $("<p>").text(uvIndex);
 
-        $("#current-area").append(uvIndex)
+        $("#current-area").append(uvDisplay);
+
     });
 }
