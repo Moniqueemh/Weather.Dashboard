@@ -1,6 +1,6 @@
 # Weather.Dashboard
 
-Server-side APIs
+[alt text](img.png)
 
 # Basic Understanding HW:
 
