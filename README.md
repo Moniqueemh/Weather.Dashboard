@@ -1,6 +1,6 @@
 # Weather.Dashboard
 
-[alt text](img.png)
+![img.png](./img.png)
 
 # Basic Understanding HW:
 
